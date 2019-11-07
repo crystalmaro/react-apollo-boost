@@ -43,16 +43,12 @@ a {
 .Repo__list {
 	width: 100%;
 	display: block;
-	/* padding: 10px; */
+	padding: 10px 0;
 	color: black;
+	border-bottom: 1px solid grey;
 }
 
 .Repo__list > a {
 	color: black;
 	display: block;
-}
-
-.Repo__list > a:nth-child(2) {
-	border-bottom: 1px solid grey;
-	padding-bottom: 10px;
 }
