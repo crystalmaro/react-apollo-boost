@@ -6,9 +6,9 @@
 
 ### 需求
 
-- 使用 React
+- [x] 使用 React
 
-- 使用 apollo-boost
+- [x] 使用 apollo-boost
 
 ### Tips
 
