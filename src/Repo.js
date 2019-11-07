@@ -29,9 +29,14 @@ export default function Repo({ login }) {
 	}
 	if (data.user) {
 		return data.user.repositories.nodes.map(({ name, url }) => (
-			<a key={name} href={url} className="Repo__list" target="_blank">
-				{name}
-			</a>
+			<div key={name} className="Repo__list">
+				<a href={url} target="_blank">
+					{name}
+				</a>
+				<a href={url} target="_blank">
+					{url}
+				</a>
+			</div>
 		));
 	}
 }

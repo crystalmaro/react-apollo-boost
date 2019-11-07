@@ -16,7 +16,7 @@ body,
 *,
 a {
 	box-sizing: border-box;
-	/* text-decoration: none; */
+	text-decoration: none;
 	font-size: 1.25rem;
 	font-family: 'Ubuntu', sans-serif;
 }
@@ -27,6 +27,7 @@ a {
 }
 .Repo__form {
 	display: flex;
+	margin: 20px 0;
 }
 .Repo__form-input {
 	padding: 10px;
@@ -41,8 +42,17 @@ a {
 }
 .Repo__list {
 	width: 100%;
-	cursor: pointer;
 	display: block;
-	padding: 10px;
+	/* padding: 10px; */
 	color: black;
+}
+
+.Repo__list > a {
+	color: black;
+	display: block;
+}
+
+.Repo__list > a:nth-child(2) {
+	border-bottom: 1px solid grey;
+	padding-bottom: 10px;
 }

@@ -15,8 +15,6 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-	// const token = '6e18050068b398ff5dc1efcb91ec0c4b56a0c24d';
-	// const token = 'ecfaa59de43d93facc7f9119e69d0205382e18ed';
 	const token = githubToken;
 	// return the headers to the context so httpLink can read them
 	return {
@@ -45,6 +43,7 @@ class App extends Component {
 		return (
 			<ApolloProvider client={client}>
 				<div className="Repo">
+					Search repo by username 🔍
 					<Search searchUser={this.searchUser} />
 					<Repo login={this.state.username} />
 				</div>
@@ -54,18 +53,3 @@ class App extends Component {
 }
 
 export default App;
-
-{
-	/* <form className="Repo__form" onSubmit={this.handleSubmit}>
-<input
-  onChange={this.handleChange}
-  className="Repo__form-input"
-  value={this.state.username}
-  type="text"
-  placeholder="username"
-/>
-<button className="Repo__form-search" type="submit">
-  Search
-</button>
-</form> */
-}
