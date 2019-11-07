@@ -4,9 +4,9 @@ import { gql } from 'apollo-boost';
 // binds apollo to react
 import { graphql } from 'react-apollo';
 
-const TEST = gql`
-	{
-		user(login: "crystalmaro") {
+const GET_REPO = gql`
+	query Repo($login: String!) {
+		user(login: $login) {
 			repositories(first: 50, isFork: false) {
 				nodes {
 					name
@@ -17,80 +17,76 @@ const TEST = gql`
 	}
 `;
 
-// const TEST = gql`
-// 	{
-// 		rates(currency: "USD") {
-// 			currency
-// 			rate
-// 		}
-// 	}
-// `;
-
-// function Repo() {
-// 	console.log('hi');
-// 	const { loading, error, data } = useQuery(TEST);
-// 	console.log(data);
-// 	if (loading) return <p>Loading...</p>;
-// 	if (error) return <p>Error :(</p>;
-// 	return data.viewer.map(({ login, name }) => (
-// 		<div key={login}>
-// 			<p>
-// 				{login}: {name}
-// 			</p>
-// 		</div>
-// 	));
-// }
-// export default graphql(TEST)(Repo);
-
-class Repo extends Component {
-	state = {
-		username: '',
-	};
-	handleChange = (e) => {
-		this.setState({
-			username: e.target.value,
-		});
-	};
-	handleSubmit = (e) => {
-		e.preventDefault();
-		console.log('submit pressed');
-		this.setState({
-			username: '',
-		});
-	};
-	render() {
-		var data = this.props.data;
-		if (true) {
-			console.log(data.user);
-		}
-		return (
-			<div className="Repo">
-				<form className="Repo__form" onSubmit={this.handleSubmit}>
-					<input
-						onChange={this.handleChange}
-						className="Repo__form-input"
-						value={this.state.username}
-						type="text"
-						placeholder="username"
-					/>
-					<button className="Repo__form-search" type="submit">
-						Search
-					</button>
-				</form>
-				<div className="Repo__list">
-					<a className="Repo__list-link">repo name and link</a>
-				</div>
-			</div>
-		);
+export default function Repo({ login }) {
+	const { loading, error, data } = useQuery(GET_REPO, {
+		variables: { login },
+	});
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+	if (error) {
+		return <div>...</div>;
+	}
+	if (data.user) {
+		return data.user.repositories.nodes.map(({ name, url }) => (
+			<a key={name} href={url} className="Repo__list" target="_blank">
+				{name}
+			</a>
+		));
 	}
 }
 
 // class Repo extends Component {
+// 	state = {
+// 		username: '',
+// 	};
+// 	handleChange = (e) => {
+// 		this.setState({
+// 			username: e.target.value,
+// 		});
+// 	};
+// 	handleSubmit = (e) => {
+// 		e.preventDefault();
+// 		console.log('submit pressed');
+// 		this.setState({
+// 			username: '',
+// 		});
+// 	};
+// 	renderRepo = () => {
+// 		let data = this.props.data;
+// 		if (data.loading) {
+// 			return <div>Loading...</div>;
+// 		}
+// 		if (data.error) {
+// 			return <div>Error.</div>;
+// 		}
+// 		if (data.user) {
+// 			return data.user.repositories.nodes.map(({ name, url }) => (
+// 				<a key={name} href={url} className="Repo__list-link">
+// 					{name}
+// 				</a>
+// 			));
+// 		}
+// 	};
 // 	render() {
-// 		console.log(this.props);
-// 		return <div>test repo</div>;
+// 		return (
+// 			<div className="Repo">
+// 				<form className="Repo__form" onSubmit={this.handleSubmit}>
+// 					<input
+// 						onChange={this.handleChange}
+// 						className="Repo__form-input"
+// 						value={this.state.username}
+// 						type="text"
+// 						placeholder="username"
+// 					/>
+// 					<button className="Repo__form-search" type="submit">
+// 						Search
+// 					</button>
+// 				</form>
+// 				<div className="Repo__list">{this.renderRepo()}</div>
+// 			</div>
+// 		);
 // 	}
 // }
 
-export default graphql(TEST)(Repo);
-// export default Repo;
+// export default graphql(TEST)(Repo);
