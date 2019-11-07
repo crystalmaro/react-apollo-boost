@@ -8,6 +8,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { githubToken } from './token';
 
 const httpLink = createHttpLink({
 	uri: 'https://api.github.com/graphql',
@@ -15,7 +16,8 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
 	// const token = '6e18050068b398ff5dc1efcb91ec0c4b56a0c24d';
-	const token = 'ecfaa59de43d93facc7f9119e69d0205382e18ed';
+	// const token = 'ecfaa59de43d93facc7f9119e69d0205382e18ed';
+	const token = githubToken;
 	// return the headers to the context so httpLink can read them
 	return {
 		headers: {
